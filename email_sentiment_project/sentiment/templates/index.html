@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sentiment Analysis</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #ccc 3px solid;
+        }
+
+        header h1 {
+            text-align: center;
+            margin: 0;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            display: block;
+            width: 50%;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 25%;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        .results {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .results h2 {
+            color: #333;
+        }
+
+        .results p {
+            margin: 10px 0;
+        }
+
+        .error {
+            color: red;
+            background: #fdd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Email Sentiment Analysis</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <button type="submit">Run</button>
+        </form>
+
+        {% if sentiment %}
+            <div class="results">
+                <h2>Results:</h2>
+                <p><b>Email snippet:</b>  {{ snippet }}</p>
+                <p><b>Cleaned email text:</b>  {{ cleaned_email_text }}</p>
+                <p><b>Sentiment score:</b> {{ sentiment_score }}</p>
+                <p><b>Sentiment:</b> {{ sentiment }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
